@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KB  — Portfolio</title>
+  <meta name="description" content="Portfolio of [Your Name] — developer, security researcher, student." />
+  <style>
+    /* Mobile-first responsive portfolio
+       - Single-file: HTML + CSS + JS
+       - Replace text placeholders with your real content
+    */
+
+    :root{
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #98a0b3;
+      --accent: #7dd3fc;
+      --text: #eef2ff;
+      --glass: rgba(255,255,255,0.03);
+      --radius: 14px;
+      --maxw: 960px;
+    }
+
+    /* Light theme variables (will be toggled) */
+    .light{
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #0ea5e9;
+      --text: #0b1220;
+      --glass: rgba(11,18,32,0.04);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:linear-gradient(180deg,var(--bg),#071023 80%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      padding:20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+    }
+
+    header{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .avatar{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),transparent);
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#052531;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35);
+      flex-shrink:0;
+    }
+
+    .brand h1{
+      margin:0;font-size:1rem;
+      letter-spacing:0.2px;
+    }
+    .brand p{margin:0;font-size:0.8rem;color:var(--muted)}
+
+    nav{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .btn{
+      background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;
+      color:var(--text);text-decoration:none;font-weight:600;font-size:0.9rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .btn.secondary{
+      border:1px solid rgba(255,255,255,0.06);
+      background:var(--glass);
+    }
+
+    /* Hero / intro */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:18px;
+      align-items:start;
+      margin-bottom:18px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .intro{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+
+    .intro .meta{font-size:0.92rem}
+    .intro h2{margin:0;font-size:1.25rem}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:0.75rem;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted)}
+
+    /* Grid for content */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    @media(min-width:820px){
+      .hero{grid-template-columns: 1fr 320px}
+      .grid{grid-template-columns: 1fr 340px}
+    }
+
+    /* Experience / Projects list */
+    .section-title{display:flex;justify-content:space-between;align-items:center}
+    .list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+    .item{padding:12px;border-radius:12px;background:var(--card);border:1px solid rgba(255,255,255,0.02)}
+    .item h3{margin:0;font-size:0.98rem}
+    .muted{color:var(--muted);font-size:0.88rem}
+    .small{font-size:0.82rem;color:var(--muted)}
+
+    /* Projects */
+    .projects{display:grid;grid-template-columns:1fr;gap:10px}
+    @media(min-width:600px){ .projects{grid-template-columns:repeat(2,1fr)} }
+
+    .project-card{padding:12px;border-radius:12px;background:linear-gradient(180deg,transparent, rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+    .project-card h4{margin:0 0 6px 0}
+    .project-card p{margin:0;color:var(--muted);font-size:0.9rem}
+
+    /* Contact */
+    .contact-form{display:flex;flex-direction:column;gap:8px}
+    input,textarea{
+      padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);
+      font-size:0.95rem;resize:vertical;
+    }
+    input::placeholder, textarea::placeholder{color:rgba(255,255,255,0.25)}
+    .row{display:flex;gap:8px}
+    .row .col{flex:1}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:0.85rem;padding:10px}
+
+    /* utility */
+    .flex{display:flex;gap:8px;align-items:center}
+    .spacer{flex:1}
+    .download{
+      display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:700;
+      border:1px solid rgba(255,255,255,0.06);background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent)
+    }
+
+    /* small nav for mobile */
+    .mobile-nav{
+      display:flex;gap:8px;
+    }
+    @media(min-width:820px){ .mobile-nav{display:none} }
+
+    /* big screen nav hide */
+    @media(max-width:819px){
+      nav .desktop-only{display:none}
+    }
+
+    /* focus states */
+    a:focus, button:focus, input:focus, textarea:focus { outline: 3px solid rgba(125,211,252,0.18); outline-offset:2px; }
+
+  </style>
+</head>
+<body>
+  <div class="wrap" id="top">
+    <header>
+      <div class="brand">
+        <div class="avatar" aria-hidden="true">KB</div>
+        <div>
+          <h1>Kelvin Bura</h1>
+          <p class="muted">Student • Security enthusiast • Full-stack learner • Mobile App Developer</p>
+   
+        </div>
+      </div>
+
+      <nav>
+        <div class="mobile-nav">
+          <a class="btn" href="#contact">Contact</a>
+        </div>
+
+        <a class="btn desktop-only" href="#projects">Projects</a>
+        <a class="btn desktop-only" href="#experience">Experience</a>
+
+        <a class="download" id="downloadCV" href="cv.pdf" download>📄 Download CV</a>
+
+        <button class="btn secondary" id="themeToggle" aria-pressed="false" title="Toggle theme">🌙</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card">
+          <div class="intro">
+            <div style="min-width:72px">
+              <!-- Replace avatar image if you have one -->
+              <img src="prof.png" alt="" id="profileImg" style="width:72px;height:72px;border-radius:12px;display:none" />
+            </div>
+
+            <div>
+              <h2>Hello — I'm <strong>Kelvin  Bura</strong></h2>
+              <p class="meta muted">Short pitch: developer & security hobbyist focused on web apps, automation, mobile dev and penetration testing.</p>
+
+              <div class="tags" aria-hidden="false">
+                <span class="tag">Python</span>
+                <span class="tag">C</span>
+                <span class="tag">Dart</span>
+                <span class="tag">Javascript</span>
+                <span class="tag">Cloud Security</span>
+              </div>
+
+              <div style="margin-top:12px" class="flex">
+                <a class="btn" href="#projects">See projects</a>
+                <a class="btn" href="cv.pdf" download>Download CV</a>
+                <button class="btn secondary" id="copyEmail">Copy email</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px" class="small muted">
+            Location: Arusha, Tanzania — Open to collaboration and freelance projects.
+          </div>
+        </div>
+
+        <aside class="card">
+          <div class="section-title"><strong>Quick info</strong></div>
+          <div style="margin-top:10px">
+            <div class="small muted">Email</div>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
+              <div class="muted" id="emailText">kelvinyusuph05@gmail.com</div>
+            </div>
+
+            <div style="margin-top:12px">
+              <div class="small muted">Links</div>
+              <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+                <a class="btn" href="https://github.com/barackblue/" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn" href="https://www.linkedin.com/in/kelvin-bura-74a053362" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="btn"href="https://wa.me/255768201854" target="_blank" rel="noopener">WhatsApp</a>
+                <a class="btn" href="https://medium.com/@itshardtosay5" target="_blank" rel="noopener">Medium</a>
+              </div>
+            </div>
+
+            <div style="margin-top:12px">
+              <div class="small muted">Skills</div>
+              <div class="tags" style="margin-top:8px">
+                <span class="tag">Web Security</span>
+                <span class="tag">Pentesting</span>
+                <span class="tag">Django</span>
+                <span class="tag">kivy</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="grid">
+        <div>
+          <div class="card" id="projects">
+            <div class="section-title">
+              <h3>Projects</h3>
+              <span class="small muted">Showcase of practical work</span>
+            </div>
+
+            <div class="projects list" style="margin-top:12px">
+              <!-- Repeat project-card and replace with real projects -->
+              <article class="project-card" aria-labelledby="p1">
+                <h4 id="p1">AI-Powered Web Security Scanner</h4>
+                <p>Built a scanner using Python + ML to detect web vulnerabilities (XSS, LFI, CSRF). Backend: Django. <p style="color: red;">Status:</p> in progress.</p>
+                <div class="small muted" style="margin-top:8px">Tech: Python · Django · JS · Docker</div>
+              </article>
+
+              <article class="project-card" aria-labelledby="p2">
+                <h4 id="p2">Automated Recon Script</h4>
+                <p>CLI tool that automates recon tasks: subdomain enumeration, simple LFI checks, and pcap scanning helpers.</p>
+                <div class="small muted" style="margin-top:8px">Tech: Bash · Python</div>
+              </article>
+            </div>
+          </div>
+         
+          <div class="card" id="experience" style="margin-top:12px">
+            <div class="section-title">
+              <h3>Experience & Education</h3>
+              <span class="small muted">Relevant roles & studies</span>
+            </div>
+
+            <div class="list" style="margin-top:12px">
+              <div class="item">
+                <h3>Final-Year Project — AI Web Scanner</h3>
+                <div class="muted">2025 — Student project</div>
+                <p class="small" style="margin-top:8px">Designing a subscription-based multi-platform tool for web vulnerability scanning.</p>
+              </div>
+
+              <div class="item">
+                <h3>WhatsApp and Telegram Boots</h3>
+                <div class="muted">Tech: Django · flask · jwt</div>
+                <p class="small" style="margin-top:8px">Used bot-
+                  Father for telegram to get APIs and Whats
+                  App cloud API’s to create simple food
+                  ordering bots while connecting them to
+                  flask and django while exploiting the use of
+                  jwt tokens and Django restful framework.</p>
+              </div>
+              <div class="item">
+                <h3>Pen-testing (lab)</h3>
+                <div class="muted">Capture the flag platforms & practice</div>
+                <p class="small" style="margin-top:8px">Engaged in Sanifu, Meta CTFS, Hack The Box, TryHackMe challenges focusing on OSINT, cryptography, privillage escalation and exploit
+                  development.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h3>About</h3>
+            <p class="small muted" style="margin-top:8px">Short bio: I’m a student and security-focused developer who prefers practical projects. I build tools in Python,bash and C, and I like to keep projects private until polished.</p>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card" id="contact">
+            <h3>Contact</h3>
+            <p class="small muted">Want to work together? Drop a message — or use the quick email copy button.</p>
+
+            <form class="contact-form" onsubmit="return contactSubmit(event)">
+              <input type="text" id="name" placeholder="Your name" required />
+              <input type="email" id="email" placeholder="Your email" required />
+              <textarea id="message" rows="5" placeholder="Short message" required></textarea>
+              <div style="display:flex;gap:8px;margin-top:6px">
+                <button class="btn" type="submit">Send (opens mail)</button>
+                <a class="btn secondary" href="mailto:kelvinyusuph05@gmail.com?subject=Contact%20from%20portfolio">Open mail</a>
+              </div>
+            </form>
+
+            <div style="margin-top:12px">
+              <div class="small muted">Other</div>
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <a class="btn" href="#" onclick="copy('https://github.com/barackblue/')" >Copy GitHub</a>
+                <a class="btn" href="#" onclick="copy('https://t.me/255768201854')">Copy Telegram</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h4>Quick CV</h4>
+            <p class="small muted" style="margin-top:8px; color: greenyellow;" >See alto more projects in my cv and <a href="https://github.com/barackblue/" target="_blank" rel="noopener" style="color: rgb(12, 230, 164);">GitHub</a></p>
+            <div style="margin-top:10px">
+              <a class="download" href="cv.pdf" download>📄 Download CV</a>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Kelvin Bura ·
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Basic JS: theme toggle, copy email, mailto submit, small utilities
+    (function(){
+      const root = document.documentElement;
+      const themeToggle = document.getElementById('themeToggle');
+      const yearSpan = document.getElementById('year');
+      const emailText = document.getElementById('emailText').textContent.trim();
+      yearSpan.textContent = new Date().getFullYear();
+
+      // load theme from localStorage
+      const stored = localStorage.getItem('theme');
+      if(stored === 'light') document.documentElement.classList.add('light');
+
+      themeToggle.addEventListener('click', () => {
+        const isLight = document.documentElement.classList.toggle('light');
+        themeToggle.textContent = isLight ? '☀️' : '🌙';
+        themeToggle.setAttribute('aria-pressed', String(isLight));
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+
+      // copy email quick button
+      document.getElementById('copyEmail').addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(emailText);
+          alert('Email copied to clipboard');
+        } catch(e) {
+          // fallback
+          const tmp = document.createElement('textarea');
+          tmp.value = emailText; document.body.appendChild(tmp);
+          tmp.select(); document.execCommand('copy'); tmp.remove();
+          alert('Email copied to clipboard');
+        }
+      });
+
+      // copy utility used by some links
+      window.copy = async function(v){
+        try { await navigator.clipboard.writeText(v); alert('Copied'); }
+        catch(e){ prompt('Copy this', v); }
+      };
+
+      // contact form: open mail client with prefilled subject/body
+      window.contactSubmit = function(e){
+        e.preventDefault();
+        const name = encodeURIComponent(document.getElementById('name').value.trim());
+        const email = encodeURIComponent(document.getElementById('email').value.trim());
+        const message = encodeURIComponent(document.getElementById('message').value.trim());
+        const subject = encodeURIComponent('Portfolio contact from ' + name);
+        const body = encodeURIComponent('Name: ' + name + '\\nEmail: ' + email + '\\n\\n' + message);
+        location.href = `mailto:kelvinyusuph05@gmail.com?subject=${subject}&body=${body}`;
+        return false;
+      };
+
+      // smooth link behavior for internal links
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const href = a.getAttribute('href');
+          if(href.length > 1){
+            e.preventDefault();
+            document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'});
+          }
+        });
+      });
+
+      // simple accessibility: show profile image if provided via attribute
+      const profileImg = document.getElementById('profileImg');
+      if(profileImg && profileImg.src){
+        profileImg.style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>
